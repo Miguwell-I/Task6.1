@@ -55,18 +55,21 @@ pipeline {
     post {
         always {
             echo 'Pipeline finished'
+            archiveArtifacts artifacts: 'build.log'
         }
         
         success {
             mail to: 'miguelimperial020@gmail.com',
                  subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
                  body: "The pipeline has completed successfully."
+                     attachments: [fileName: 'build.log', attachment: file('build.log')]
         }
 
         failure {
             mail to: 'miguelimperial020@gmail.com',
                  subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
-                 body: "The pipeline has failed. Please check the logs."
+                 body: 'The pipeline has failed. Please check the attached log for details.',
+                    attachments: [fileName: 'build.log', attachment: file('build.log')]
         }
     }
 }
