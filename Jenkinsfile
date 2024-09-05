@@ -49,24 +49,14 @@ pipeline {
             echo 'Pipeline finished'
         }
         success {
-            script {
-                def logFilePath = "${currentBuild.rawBuild.logFile}"
-                mail to: 'miguelimperial020@gmail.com',
-                     subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
-                     body: "The pipeline has completed successfully.",
-                     attachLog: true,
-                     attachmentsPattern: logFilePath
-            }
+            mail to: 'miguelimperial020@gmail.com',
+                 subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
+                 body: "The pipeline has completed successfully."
         }
         failure {
-            script {
-                def logFilePath = "${currentBuild.rawBuild.logFile}"
-                mail to: 'miguelimperial020@gmail.com',
-                     subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
-                     body: "The pipeline has failed. Please check the logs.",
-                     attachLog: true,
-                     attachmentsPattern: logFilePath
-            }
+            mail to: 'miguelimperial020@gmail.com',
+                 subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
+                 body: "The pipeline has failed. Please check the Jenkins console output."
         }
     }
 }
