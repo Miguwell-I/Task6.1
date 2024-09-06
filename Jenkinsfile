@@ -52,7 +52,7 @@ pipeline {
       emailext (
         to: 'miguelimperial020@gmail.com',
         subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
-        body: "The pipeline has completed successfully.",
+       body: "The pipeline has completed successfully. Log:\n\n${currentBuild.result}",
         attachLog: true, 
         compressLog: true
       )
@@ -61,7 +61,7 @@ pipeline {
       emailext (
         to: 'miguelimperial02@gmail.com',
         subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
-        body: "The pipeline has failed. Please check the Jenkins console output and attached log.",
+        body: "The pipeline has failed. Log:\n\n${currentBuild.result}",
         attachLog: true,
         compressLog: true
       )
