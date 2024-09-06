@@ -59,7 +59,7 @@ pipeline {
     }
     failure {
       emailext (
-        to: 'miguelimperial02  @gmail.com',
+        to: 'miguelimperial02@gmail.com',
         subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
         body: "The pipeline has failed. Please check the Jenkins console output and attached log.",
         attachLog: true,
