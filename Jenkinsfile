@@ -45,11 +45,26 @@ pipeline {
         }
     }
     post {
-        success {
-            echo 'Pipeline finished successfully!'
+        always {
+            echo 'Pipeline finished'
         }
-        failure {
-            echo 'Pipeline failed. Please check the logs for more details.'
-        }
+    success {
+      emailext (
+        to: 'miguelimperial020@gmail.com',
+        subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
+        body: "The pipeline has completed successfully.",
+        attachLog: true, 
+        compressLog: true
+      )
+    }
+    failure {
+      emailext (
+        to: 'miguelimperial02@gmail.com',
+        subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
+        body: "The pipeline has failed. Please check the Jenkins console output and attached log.",
+        attachLog: true,
+        compressLog: true
+      )
+    }
     }
 }
