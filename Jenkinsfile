@@ -54,6 +54,7 @@ pipeline {
         subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
         body: "The pipeline has completed successfully.",
         attachLog: true, 
+        compressLog: true
       )
     }
     failure {
@@ -62,6 +63,7 @@ pipeline {
         subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
         body: "The pipeline has failed. Please check the Jenkins console output and attached log.",
         attachLog: true,
+        compressLog: true
       )
     }
     }
