@@ -101,14 +101,13 @@ pipeline {
         success {
 
             script {
-                def logFile = "pipeline-logs-success-${currentBuild.number}.txt"
-                sh "cat ${env.WORKSPACE}/build.log > ${logFile}"
+                def logContent = currentBuild.rawBuild.getLog(10000).join("\n")
+                writeFile file: "pipeline-success-logs.txt", text: logContent
                 emailext(
                     to: 'miguelimperial020@gmail.com',
                     subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
                     body: "The pipeline has completed successfully. Please find the logs attached.",
-                    attachLog: true,
-                    attachmentsPattern: logFile
+                    attachmentsPattern: "pipeline-success-logs.txt"
                 )
             }
         }
@@ -116,14 +115,13 @@ pipeline {
         failure {
 
             script {
-                def logFile = "pipeline-logs-failure-${currentBuild.number}.txt"
-                sh "cat ${env.WORKSPACE}/build.log > ${logFile}"
+                def logContent = currentBuild.rawBuild.getLog(10000).join("\n")
+                writeFile file: "pipeline-failure-logs.txt", text: logContent
                 emailext(
                     to: 'miguelimperial020@gmail.com',
                     subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
-                    body: "The pipeline has failed. Please check the Jenkins console output. Logs are attached.",
-                    attachLog: true,
-                    attachmentsPattern: logFile
+                    body: "The pipeline has failed. Please check the logs attached.",
+                    attachmentsPattern: "pipeline-failure-logs.txt"
                 )
             }
         }
